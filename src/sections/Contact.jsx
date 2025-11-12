@@ -1,0 +1,131 @@
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { FaLinkedin, FaInstagram, FaGithub, FaEnvelope, FaPhoneAlt, FaMapMarkerAlt } from "react-icons/fa";
+
+const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    company: "",
+    email: "",
+    phone: "",
+    service: "",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Contact form data:", formData);
+    alert("Thank you for contacting XpertStrikes! We'll reach out soon.");
+    setFormData({
+      name: "",
+      company: "",
+      email: "",
+      phone: "",
+      service: "",
+      message: "",
+    });
+  };
+
+  return (
+    <section
+      id="contact"
+      className="min-h-screen flex flex-col md:flex-row items-center justify-center gap-12 px-6 md:px-16 py-24 bg-transparent relative"
+    >
+      {/* ✨ Glow Background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-900/10 to-blue-950/40 blur-3xl -z-10"></div>
+
+      {/* 🏢 Left: Contact Info */}
+      <motion.div
+        initial={{ opacity: 0, x: -80 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+        className="glass p-8 md:p-10 rounded-2xl flex-1 text-center md:text-left"
+      >
+        <h2 className="text-4xl md:text-5xl font-extrabold mb-6 text-blue-300">
+          Get in <span className="text-blue-500">Touch</span>
+        </h2>
+        <p className="text-gray-300 text-lg mb-8">
+          We'd love to hear from you! Whether you’re looking for a service, partnership, or just have a question — we’re here.
+        </p>
+
+        <div className="space-y-4 text-gray-200">
+          <p className="flex items-center gap-3"><FaEnvelope className="text-blue-400" /> support@xpertstrikes.com</p>
+          <p className="flex items-center gap-3"><FaPhoneAlt className="text-blue-400" /> +91 98765 43210</p>
+          <p className="flex items-center gap-3"><FaMapMarkerAlt className="text-blue-400" /> Chennai, India</p>
+        </div>
+
+        <div className="flex gap-5 mt-8 justify-center md:justify-start">
+          <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="text-blue-400 hover:text-white text-2xl transition-all duration-300">
+            <FaLinkedin />
+          </a>
+          <a href="https://instagram.com" target="_blank" rel="noreferrer" className="text-blue-400 hover:text-white text-2xl transition-all duration-300">
+            <FaInstagram />
+          </a>
+          <a href="https://github.com" target="_blank" rel="noreferrer" className="text-blue-400 hover:text-white text-2xl transition-all duration-300">
+            <FaGithub />
+          </a>
+        </div>
+      </motion.div>
+
+      {/* 📩 Right: Contact Form */}
+      <motion.form
+        onSubmit={handleSubmit}
+        initial={{ opacity: 0, x: 80 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+        className="glass p-8 md:p-10 rounded-2xl flex-1 w-full max-w-lg shadow-2xl"
+      >
+        <h3 className="text-3xl font-semibold mb-6 text-blue-300 text-center">Contact Us</h3>
+
+        <div className="grid text-gray-300 md:grid-cols-2 gap-4">
+          <input type="text" name="name" placeholder="Your Name" value={formData.name} onChange={handleChange} required className="p-3 rounded-lg bg-transparent border border-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+          <input type="text" name="company" placeholder="Company Name" value={formData.company} onChange={handleChange} required className="p-3 rounded-lg bg-transparent border border-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        </div>
+
+        <div className="grid text-gray-300 md:grid-cols-2 gap-4 mt-4">
+          <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required className="p-3 rounded-lg bg-transparent border border-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+          <input type="tel" name="phone" placeholder="Phone Number" value={formData.phone} onChange={handleChange} required className="p-3 rounded-lg bg-transparent border border-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        </div>
+
+        <select
+          name="service"
+          value={formData.service}
+          onChange={handleChange}
+          required
+          className="w-full p-3 rounded-lg bg-transparent border border-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 mt-4 text-gray-400"
+        >
+          <option value="">Select Service</option>
+          <option value="Web Development">Web Development</option>
+          <option value="AI Integration">AI Integration</option>
+          <option value="UI/UX Design">UI/UX Design</option>
+          <option value="Cloud Solutions">Cloud Solutions</option>
+          <option value="App Development">App Development</option>
+          <option value="Automation">Automation</option>
+        </select>
+
+        <textarea
+          name="message"
+          placeholder="Write your requirements..."
+          value={formData.message}
+          onChange={handleChange}
+          rows="4"
+          required
+          className="w-full p-3 mt-4 rounded-lg bg-transparent border border-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-300"
+        ></textarea>
+
+        <button
+          type="submit"
+          className="mt-6 w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold transition-all duration-300 shadow-lg hover:scale-105"
+        >
+          Send Message
+        </button>
+      </motion.form>
+    </section>
+  );
+};
+
+export default Contact;
